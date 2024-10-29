@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-toolbar class="barra" color="#4CAF50">
+    
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="dismiss()"><ion-icon name="chevron-down-outline"></ion-icon></ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button *ngIf="estate!=0" color="light" (click)="cancelar()"><ion-icon color="light" name="close-outline"></ion-icon></ion-button>
+      <ion-button color="light" (click)="presentActionSheet()"><ion-icon color="light" name="add-outline"></ion-icon></ion-button>
+    </ion-buttons>
+
+    <ion-title>Novedades</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="novedadesForm">
+    <ion-list>
+
+      <ion-card *ngIf="estate === 1 || estate === 3 || estate === 4 || estate === 5" color="primary">
+        <ion-card-header>
+          <ion-card-subtitle *ngIf="estate===1 || estate===3">Parada Adicional</ion-card-subtitle>
+          <ion-card-subtitle *ngIf="estate===4">NO SHOW</ion-card-subtitle>
+          <ion-card-subtitle *ngIf="estate===5">OTROS</ion-card-subtitle>
+        </ion-card-header>
+        <ion-item>
+          <ion-label color="dark" position="stacked">Detalles</ion-label>
+          <ion-textarea formControlName="detalles" rows="6" #descripcion placeholder="Escriba aquí..."></ion-textarea>
+        </ion-item>
+      </ion-card>
+
+      <ion-card *ngIf="estate === 2 || estate === 3" color="medium">
+          <ion-card-header>
+            <ion-card-subtitle>Tiempo de Espera</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-item>
+        
+            <ion-label position="stacked">Seleccione el tiempo</ion-label>
+            <ion-row>
+              <ion-col size=12>
+                <ion-label position="stacked">Días</ion-label>
+                <ion-select okText="Seleccionar" cancelText="Cancelar" #estate ngModel name="estate" placeholder="Seleccionar" formControlName="dias">
+                  <ion-select-option value="0">0-Dias</ion-select-option>
+                  <ion-select-option value="1">1-Dia</ion-select-option>
+                  <ion-select-option value="2">2-dias</ion-select-option>
+                  <ion-select-option value="3">3-dias</ion-select-option>
+                </ion-select>
+              </ion-col>
+              <ion-col size=12>
+                <ion-label position="stacked">Horas</ion-label>
+                <ion-select okText="Seleccionar" cancelText="Cancelar" #estate ngModel name="estate" placeholder="Seleccionar" formControlName="horas">
+                  <ion-select-option value="0">0-Horas</ion-select-option>
+                  <ion-select-option value="1">1-Hora</ion-select-option>
+                  <ion-select-option value="2">2-Horas</ion-select-option>
+                  <ion-select-option value="3">3-Horas</ion-select-option>
+                  <ion-select-option value="4">4-Horas</ion-select-option>
+                  <ion-select-option value="5">5-Horas</ion-select-option>
+                  <ion-select-option value="6">6-Horas</ion-select-option>
+                  <ion-select-option value="7">7-Horas</ion-select-option>
+                  <ion-select-option value="8">8-Horas</ion-select-option>
+                  <ion-select-option value="9">9-Horas</ion-select-option>
+                  <ion-select-option value="10">10-Horas</ion-select-option>
+                  <ion-select-option value="11">11-Horas</ion-select-option>
+                  <ion-select-option value="12">12-Horas</ion-select-option>
+                  <ion-select-option value="13">13-Horas</ion-select-option>
+                  <ion-select-option value="14">14-Horas</ion-select-option>
+                  <ion-select-option value="15">15-Horas</ion-select-option>
+                  <ion-select-option value="16">16-Horas</ion-select-option>
+                  <ion-select-option value="17">17-Horas</ion-select-option>
+                  <ion-select-option value="18">18-Horas</ion-select-option>
+                  <ion-select-option value="19">19-Horas</ion-select-option>
+                  <ion-select-option value="20">20-Horas</ion-select-option>
+                  <ion-select-option value="21">21-Horas</ion-select-option>
+                  <ion-select-option value="22">22-Horas</ion-select-option>
+                  <ion-select-option value="23">23-Horas</ion-select-option>
+                </ion-select>
+              </ion-col>
+    
+              <ion-col size=12>
+                <ion-label position="stacked">Minutos</ion-label>
+                <ion-select okText="Seleccionar" cancelText="Cancelar" #estate ngModel name="estate" placeholder="Seleccionar" formControlName="minutos">
+                  <ion-select-option value="0">0-Minutos</ion-select-option>
+                  <ion-select-option value="10">10-Minutos</ion-select-option>
+                  <ion-select-option value="20">20-Minutos</ion-select-option>
+                  <ion-select-option value="30">30-Minutos</ion-select-option>
+                  <ion-select-option value="40">40-Minutos</ion-select-option>
+                  <ion-select-option value="50">50-Minutos</ion-select-option>
+                </ion-select>
+              </ion-col>
+            </ion-row>
+            
+          </ion-item>
+      </ion-card>
+      <ion-card *ngIf="estate!=0">
+        <ion-button [disabled]="estate!=1 && estate!=2 && estate != 3 && estate != 4 && estate != 5" (click)="agregarNovedad(id)" color="primary" expand="full">Guardar Novedad <ion-icon slot="end" name="save-outline"></ion-icon></ion-button>
+      </ion-card>
+    </ion-list>    
+  </form>
+
+  <hr *ngIf="novedades.length>0 && estate!=0">
+
+    <ion-card color="warning">
+      <ion-card-header>
+        <ion-card-subtitle><b>Novedades del Servicio</b></ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+    
+    <ion-card *ngFor="let item of novedades" color="danger">
+      <ion-card-header>
+        <ion-card-subtitle *ngIf="item.tipo_novedad===1"><b>Parada Adicional</b></ion-card-subtitle>
+        <ion-card-subtitle *ngIf="item.tipo_novedad===2"><b>Tiempo de espera</b></ion-card-subtitle>
+        <ion-card-subtitle *ngIf="item.tipo_novedad===3"><b>Parada y Tiempo de Espera</b></ion-card-subtitle>
+        <ion-card-subtitle *ngIf="item.tipo_novedad===4"><b>No Show</b></ion-card-subtitle>
+        <ion-card-subtitle *ngIf="item.tipo_novedad===5"><b>Otros</b></ion-card-subtitle>
+      </ion-card-header>
+      <ion-item style="background-color: mistyrose;">
+        
+        <p *ngIf="item.tipo_novedad===1">{{item.detalles}}</p>
+        <p *ngIf="item.tipo_novedad===2">Dias: {{item.detalles.toString().split(',')[0]}}, Horas: {{item.detalles.toString().split(',')[1]}}, Minutos: {{item.detalles.toString().split(',')[2]}}</p>
+        <p *ngIf="item.tipo_novedad===3">{{item.detalles.toString().split('/')[0]}} <br> Horas: {{item.detalles.toString().split('/')[1].toString().split(',')[0]}}, Minutos:{{item.detalles.toString().split('/')[1].toString().split(',')[1]}} </p>
+        <p *ngIf="item.tipo_novedad===4">{{item.detalles}}</p>
+        <p *ngIf="item.tipo_novedad===5">{{item.detalles}}</p>
+      </ion-item>
+    </ion-card>
+
+</ion-content>

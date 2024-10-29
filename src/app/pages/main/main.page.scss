@@ -1,0 +1,170 @@
+.active-item{
+    border-left: 8px solid var(--ion-color-primary);
+}
+
+.my-custom-menu {
+    --width: 80%;
+  }
+
+  #map_canvas {
+    width: 90%;
+    height: 80%;
+    border: 1px solid red;
+  }
+  
+  
+  #address {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  #map {
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .map-wrapper {
+    position: relative;
+  
+    #map_center {
+      position: absolute;
+      z-index: 99;
+      height: 40px;
+      width: 40px;
+      top: 50%;
+      left: 50%;
+      margin-left: -21px;
+      margin-top: -41px;
+    }
+    
+}
+
+.container_viaje{
+  width: 300px;
+  z-index: 2;
+  position: absolute;
+  //left: 50%;
+  border-radius: 5px;
+  background: gainsboro;
+  -moz-box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.50);
+  -webkit-box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.50);
+  box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.50);
+  -webkit-transform: translate(0%, -99%);
+  transform: translate(10%, -99%);
+  margin-top: 170px;
+  min-height: 80px;
+}
+
+.container_viaje{
+  padding: 8px 12px;
+}
+
+.content_info_conductor{
+  width: 100%;
+}
+
+.container_viaje, .container_viaje_destino_recoger label{
+  font-size: 13px;
+  color: #4daf51;
+  font-weight: 500;
+}
+
+.container_viaje, .container_viaje_destino_recoger p{
+  font-size: 13px;
+  color: #5f6062;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: 100;
+}
+
+.container_viaje_destino_recoger p{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.container_viaje_destino_recoger label{
+  display: flex;
+}
+.container_viaje_destino_recoger{
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  padding: 15px 15px;
+  z-index: 9;
+  background: white;
+  height: 66px;
+  -webkit-box-shadow: 0px 2px 3px 3px rgba(0, 0, 0, 0.50);
+  box-shadow: 0px 2px 3px 3px rgba(0, 0, 0, 0.50);
+  display: flex;
+  align-items: center;
+}
+
+.yourCssClassName {
+  > div{
+    background-color:#32db64!important;
+}
+}
+
+
+.label-estado {
+  position: absolute;
+  right: 10px;
+  font-size: 12px;
+  top: 65px;
+  padding: 6px 7px 5px;
+  z-index: 10;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 4px;
+
+  animation-name: parpadeo;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  -webkit-animation-name:parpadeo;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+}
+
+.text {
+  font-size:28px;
+  font-family:helvetica;
+  font-weight:bold;
+  color:#71d90b;
+  text-transform:uppercase;
+}
+.parpadea {
+  
+  animation-name: parpadeo;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  -webkit-animation-name:parpadeo;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-moz-keyframes parpadeo{  
+  0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes parpadeo {  
+  0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+   100% { opacity: 1.0; }
+}
+
+@keyframes parpadeo {  
+  0% { opacity: 1.0; }
+   50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}

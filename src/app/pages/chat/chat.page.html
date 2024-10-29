@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar class="barra" color="#4CAF50">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="dismiss()"><ion-icon name="chevron-down-outline"></ion-icon></ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button color="light" size="large" (click)="mostrarOpciones(id)"><ion-icon size="large" name="add-outline"></ion-icon></ion-button>
+    </ion-buttons>
+
+    <ion-title>Chat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngIf="sms===0">
+    <ion-card-header>
+      <ion-card-subtitle style="text-align: center;">
+        Mensajes Enviados start <ion-icon slot="end" name="chatbubbles-outline"></ion-icon>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-card color="medium" style="padding: 18px;" *ngFor="let msj of mensajes">
+        {{msj.mensaje}}
+        <span style="position: absolute; top: -1px; cursor: pointer; margin-right: 25px;">{{msj.time}}</span>
+      </ion-card>
+    </ion-card-content>
+    <ion-card-subtitle *ngIf="mensajes===null" style="text-align: center;">No hay mensajes</ion-card-subtitle>
+  </ion-card>
+
+  <ion-card *ngIf="sms!=0">
+    <ion-card-header>
+      <ion-card-subtitle style="text-align: center;">
+        Mensajes Enviados update <ion-icon slot="end" name="chatbubbles-outline"></ion-icon>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-card color="medium" style="padding: 18px;" *ngFor="let msj of sms">
+        {{msj.mensaje}}
+        <span style="position: absolute; top: -1px; cursor: pointer; margin-right: 25px;">{{msj.time}}</span>
+      </ion-card>
+    </ion-card-content>
+  </ion-card>
+
+  <!--<ion-fab vertical="bottom" horizontal="end">
+    <ion-fab-button size="large" color="warning" (click)="mostrarOpciones(id)"><ion-icon size="large" color="light" name="chatbox-ellipses-outline"></ion-icon></ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="danger">
+        <span>Hola barranquilla!!!</span>
+      </ion-fab-button>
+      <ion-fab-button color="dark">
+        <ion-icon name="qr-code-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="medium">
+        <ion-icon name="list-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="tertiary">
+        <ion-icon name="car-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>-->
+
+</ion-content>

@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar class="barra" color="#4CAF50">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="dismiss()"><ion-icon name="chevron-down-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Gestión Autorizados</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card color="danger">
+    <ion-card-subtitle style="text-align: center;" class="ion-padding">Agregar Pasajero Autorizado</ion-card-subtitle>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>      
+      <ion-card-subtitle style="text-align: center;" style="font-size: 11px;">Seleccione la opción para agregar</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-card>
+        <ion-row>
+          <ion-col size="6">
+            <ion-button size="small" [disabled]="sw === 1" color="dark" (click)="scanCode(id)" expand="full">Scan <ion-icon slot="end" name="qr-code-outline"></ion-icon></ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button size="small" [disabled]="sw === 1" color="secondary" (click)="manual()" expand="full">Manual <ion-icon slot="end" name="pencil-outline"></ion-icon></ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+      
+      <ion-card *ngIf="sw === 1">
+        <form [formGroup]="autorizadoForm" (ngSubmit)="onSubmit()">
+          <ion-row>
+            <ion-col size="12">
+              <!--<ion-label position="stacked" color="medium">Identificación del pasajero</ion-label>-->
+              <ion-input type="number" formControlName="cedula" #cedula autocapitalize="off" aria-autocomplete="none" placeholder="Ingrese la cédula del pasajero"></ion-input>
+              <div *ngIf="cedula.errors" class="errors">
+                <span *ngIf="cedula.errors?.required">Contraseña requerida</span>
+                <span *ngIf="cedula.errors?.minlength">La contraseña debe tener mínimo 6 caracteres</span>
+              </div>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button size="small" color="danger" (click)="volver()" expand="full"><ion-icon style="font-size: 25px;" name="close-outline"></ion-icon></ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button size="small" [disabled]="cedula.value === ''" type="submit" color="success" (click)="agregar(id)" expand="full"><ion-icon style="font-size: 25px;" name="checkmark-outline"></ion-icon></ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-card>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card color="danger">
+    <ion-card-subtitle style="text-align: center; font-family: Bahnschrift;" class="ion-padding">Los pasajeros que sean ingresados por este módulo, serán reportados al cliente para su respectiva gestión.</ion-card-subtitle>
+  </ion-card>
+
+</ion-content>

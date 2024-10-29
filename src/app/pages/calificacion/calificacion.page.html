@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar class="barra" color="#4CAF50">
+
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="dismiss()"><ion-icon name="chevron-down-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Calificación</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card color="primary" class="ion-padding">
+    <ion-card-subtitle style="text-align: center;">¿Cómo califica la experiencia de nuestro servicio?</ion-card-subtitle>
+  </ion-card>
+
+  <ion-card color="medium">
+    <ion-card-header>
+      <ion-card-subtitle style="text-align: center;">Calidad del Servicio Prestado</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content >
+      <ion-item>
+    
+        <ion-button class="center" [color]="total >= 1 ? 'success' : 'light'" (click)="uno()"><ion-icon name="star-outline"></ion-icon></ion-button>
+        <ion-button class="center" [color]="total >= 2 ? 'success' : 'light'" (click)="dos()"><ion-icon name="star-outline"></ion-icon></ion-button>
+        <ion-button class="center" [color]="total >= 3 ? 'success' : 'light'" (click)="tres()"><ion-icon name="star-outline"></ion-icon></ion-button>
+        <ion-button class="center" [color]="total >= 4 ? 'success' : 'light'" (click)="cuatro()"><ion-icon name="star-outline"></ion-icon></ion-button>
+        <ion-button class="center" [color]="total >= 5 ? 'success' : 'light'" (click)="cinco()"><ion-icon name="star-outline"></ion-icon></ion-button>
+    
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card color="medium">
+    <ion-card-header>
+      <ion-card-subtitle style="text-align: center;">
+        Actitud de Servicio del Conductor
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-item style="text-align: center;">    
+        <ion-button class="center" [color]="total_actitud >= 1 ? 'success' : 'light'" (click)="uno_actitud()"><ion-icon name="star-outline"></ion-icon></ion-button>
+        <ion-button class="center" [color]="total_actitud >= 2 ? 'success' : 'light'" (click)="dos_actitud()"><ion-icon name="star-outline"></ion-icon></ion-button>
+        <ion-button class="center" [color]="total_actitud >= 3 ? 'success' : 'light'" (click)="tres_actitud()"><ion-icon name="star-outline"></ion-icon></ion-button>
+        <ion-button class="center" [color]="total_actitud >= 4 ? 'success' : 'light'" (click)="cuatro_actitud()"><ion-icon name="star-outline"></ion-icon></ion-button>
+        <ion-button class="center" [color]="total_actitud >= 5 ? 'success' : 'light'" (click)="cinco_actitud()"><ion-icon name="star-outline"></ion-icon></ion-button>    
+      </ion-item>
+
+    </ion-card-content>
+
+  </ion-card>
+
+  <ion-card>
+    <form [formGroup]="rateForm">
+      <ion-input formControlName="rate1" hidden="true" value="{{total}}"></ion-input>
+      <ion-input formControlName="rate2" hidden="true" value="{{total_actitud}}"></ion-input>
+      <ion-button (click)="firmar(id)" [disabled]="total===0 || total_actitud===0" expand="block">Calificar <ion-icon slot="end" name="chevron-forward-outline"></ion-icon></ion-button>
+    </form>
+  </ion-card>
+
+</ion-content>

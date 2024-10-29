@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar class="barra" color="#4CAF50">
+    <!--<ion-buttons slot="start">
+      <img src="../../../assets/icon_ao.png" width="35px" height="35px">
+    </ion-buttons>-->
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="dismiss()"><ion-icon name="chevron-down-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Bioseguridad</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab *ngIf="sw === 0" vertical="center" horizontal="center" slot="fixed">
+    <ion-fab-button class="verde" size="medium" (click)="selectImageSource()">
+      <ion-icon color="light" name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+  <ion-card *ngIf="sw===1" style="margin-top: 5px;">
+    <form [formGroup]="recursosForm" (ngSubmit)="onSubmit()">
+
+      <ion-list>
+        <ion-item>
+
+          <ion-card>
+            <img [src]="converted_image"/>
+          </ion-card>          
+          
+        </ion-item>
+
+        <ion-item>
+  
+          <ion-icon name="stats-chart-outline" slot="start" color="dark"></ion-icon>
+          <ion-label position="stacked" color="dark">Cliente</ion-label>
+  
+          <ion-select mode="ios" #estate ngModel name="estate" placeholder="Seleccionar" formControlName="cliente">
+            <ion-select-option value="SUTHERLAND BAQ">SUTHERLAND BAQ</ion-select-option>
+            <ion-select-option value="SUTHERLAND BOG">SUTHERLAND BOG</ion-select-option>
+            <ion-select-option value="LHOIST">LHOIST</ion-select-option>
+            <ion-select-option value="AVIATUR">AVIATUR</ion-select-option>
+            <ion-select-option value="PIMSA">PIMSA</ion-select-option>
+            <ion-select-option value="CONINSA RAMOM H">CONINSA RAMOM H</ion-select-option>
+            <ion-select-option value="PARQUE INDUSTRIAL">PARQUE INDUSTRIAL</ion-select-option>
+          </ion-select>
+          
+        </ion-item>
+
+        <ion-item>
+  
+          <ion-icon name="pin-outline" slot="start" color="dark"></ion-icon>
+          <ion-label position="stacked" color="dark">Tipo de Ruta</ion-label>
+  
+          <ion-select mode="ios" #estate ngModel name="estate" placeholder="Seleccionar" formControlName="tipo">
+            <ion-select-option value="INGRESO">INGRESO</ion-select-option>
+            <ion-select-option value="SALIDA">SALIDA</ion-select-option>
+          </ion-select>
+          
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="calendar-outline" slot="start" color="dark"></ion-icon>
+          <ion-label color="dark" position="floating">Fecha</ion-label>
+          <ion-datetime done-text="Hecho" cancel-text="Cancelar" formControlName="fecha" #fecha placeholder="Ingrese Fecha de Servicio" displayFormat="YYYY/MM/DD" min="2020-10-15" max="2025-12-31"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="time-outline" slot="start" color="dark"></ion-icon>
+          <ion-label color="dark" position="floating">Hora</ion-label>
+          <ion-datetime done-text="Hecho" cancel-text="Cancelar" formControlName="hora" #hora placeholder="Ingrese Hora de Servicio" displayFormat="HH:mm"></ion-datetime>
+        </ion-item>
+  
+        <ion-item>
+          <ion-icon name="chatbox-ellipses-outline" slot="start" color="dark"></ion-icon>
+          <ion-label color="dark" position="floating">Novedades</ion-label>
+          <ion-input #novedades placeholder="Ingrese las novedades" formControlName="novedades" type="text" autocapitalize="off" aria-autocomplete="none"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="car-sport-outline" slot="start" color="dark"></ion-icon>
+          <ion-label color="dark" position="stacked">Placa</ion-label>
+          <ion-input #placa placeholder="Ingrese la placa del vehículo" formControlName="placa" type="text" autocapitalize="off" aria-autocomplete="none"></ion-input>
+        </ion-item>
+      </ion-list>
+      
+      <ion-list>
+        <ion-row>
+          <ion-col size="6">
+            <ion-button type="button" expand="full" color="danger" (click)="cancelar()">
+              Cancelar
+              <ion-icon name="close-outline" slot="start"></ion-icon>
+           </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button type="submit" expand="full" color="success">
+              Enviar 
+              <ion-icon name="send-outline" slot="end"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-list>
+   
+    </form>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,155 @@
+<ion-header>
+  <ion-toolbar style="background-color: #F2F2F2;">
+    <!--
+    <ion-buttons slot="start" *ngIf="servicio_activo === 'activo'">
+      <ion-button color="dark" (click)="chat(id)"><ion-icon size="large" name="chatbox-ellipses-outline"></ion-icon></ion-button>
+
+
+    </ion-buttons>
+
+    <ion-buttons slot="end" *ngIf="servicio_activo === 'activo'">
+
+      <ion-button color="dark" (click)="navegar(id)"><ion-icon size="large" name="navigate-outline"></ion-icon></ion-button>
+
+    </ion-buttons>-->
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <div style="margin: 0 auto;">
+      <center>
+        <img src="../../../assets/logo_aotour_mobile.png" style="margin-left: 40px; margin-top: 10px;"  height="60%" width="60%">
+      </center>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  
+  <!-- BOTÓN PARA VOLVER A MOSTRAR LOS DATOS DEL SERVICIO -->
+  <ion-fab style="float: left;" *ngIf="esconderdatos === 1" vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" color="light" (click)="mostrarDatos()" ion-fab color="light">
+      <ion-icon name="eye" color="danger"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+  <ion-fab vertical="top" *ngIf="servicio_activo === 'activo' && esconderdatos === 0">
+      
+    <div class="content_info_conductor">
+
+      <ion-card class="barra">
+        <ion-card-header>
+          <ion-card-subtitle color="light"><b>{{cliente}}</b></ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+
+      <ion-card color="medium">
+        <ion-card-header>
+          <ion-card-subtitle><b>Pasajero(s)</b></ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-card-subtitle *ngFor="let datos of pasajeros.toString().split('/')">{{datos.toString().split(',')[0]}}</ion-card-subtitle>
+        </ion-card-content>
+      </ion-card>
+
+      <a style="position: absolute; top: -10px; right: -10px; cursor: pointer" id="close_info_servicio">
+        <ion-icon name="close-circle" color="danger" style="font-size: 30px;" (click)="esconder()"></ion-icon>
+      </a>
+      
+    </div>
+
+  </ion-fab>
+
+  <!-- EN SERVICIO -->
+  <ion-fab *ngIf="servicio_activo === 'activo'" vertical="top" horizontal="end" slot="fixed">
+    <span class="label-estado">EN SERVICIO...</span>
+  </ion-fab>
+  <!-- EN SERVICIO -->
+
+  <ion-fab vertical="end" *ngIf="servicio_activo === 'activo' && esconderdatos === 0">
+    <div class="container_viaje_destino_recoger hidden" style="opacity: 1; background-color: wheat; height: 15%;">
+      <div class="content_viaje_destino_recoger">
+        <ion-row>
+          <ion-col size="12">
+            <label >Desde: <p style="margin-left: 3px" class="recoger"><b>{{recoger}}</b></p></label>
+          </ion-col>
+          <ion-col size="12">
+            <label>Hasta: <p style="margin-left: 3px" class="destino"><b>{{dejar}}</b></p></label>
+          </ion-col>
+          <ion-col size="12">
+            <label><span>Hora: </span><span style="color: #5f6062; font-weight: 400; margin-left: 5px" class="hora_servicio"><b>{{hora}}</b></span></label>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </ion-fab>
+
+  <!-- START SERVICIOS PROGRAMADOS -->
+  <ion-fab *ngIf="servicio_activo != 'activo'" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="tertiary" [disabled]="opcion_programados!=1" (click)="serviciosProgramados()" ion-fab color="light">
+      <ion-icon *ngIf="opcion_programados===1" name="car" style="color: #4CAF50;"></ion-icon>
+      <ion-icon *ngIf="opcion_programados!=1" name="ellipsis-horizontal-outline" style="color: #4CAF50;"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <!-- END SERVICIOS PROGRAMADOS -->
+
+  <!-- STRAT RECOGER PASAJERO -->
+  <ion-fab *ngIf="servicio_activo === 'activo' && pasajero_recogido==='enabled' " vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button size="small" [disabled]="deshabilitar != 0" (click)="recogerPasajero(id)" ion-fab color="tertiary">
+      <ion-icon name="person" color="light"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <!-- END RECOGER PASAJERO -->
+
+  <!-- V2 -->
+
+  <!-- SI NO ES ESCOLAR -->
+  <ion-fab vertical="bottom" horizontal="end" *ngIf="((servicio_activo === 'activo' && pasajero_recogido==='disabled') || tipo_servicio===1 ) && cliente!='AUTO OCASIONAL TOUR SAS BOG'">
+    <ion-fab-button size="small" color="light"><ion-icon size="small" name="options-outline"></ion-icon></ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="danger" (click)="preguntarFinalizar(id,tipo_servicio)">
+        <ion-icon name="location-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button *ngIf="tipo_servicio===1 || tipo_servicio==='1'" color="dark" (click)="scanCode(id)">
+        <ion-icon name="qr-code-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button *ngIf="tipo_servicio===1 || tipo_servicio==='1'" color="medium" (click)="listaUsuarios(id,1)">
+        <ion-icon name="list-outline"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button color="tertiary" (click)="serviciosProgramados()">
+        <ion-icon name="car-outline"></ion-icon>
+      </ion-fab-button>
+
+    </ion-fab-list>
+  </ion-fab>
+
+  <!-- SI ES ESCOLAR -->
+  <ion-fab vertical="bottom" horizontal="end" *ngIf="cliente==='COLEGIO ELISA BORRERO DE PASTRANA'">
+    <ion-fab-button size="small" color="light"><ion-icon name="options-outline"></ion-icon></ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="danger" (click)="preguntarFinalizar(id,tipo_servicio)">
+        <ion-icon name="location-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="dark" (click)="scanCodeE(id)">
+        <ion-icon name="qr-code-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="medium" (click)="listaUsuariosE(id,1)">
+        <ion-icon name="list-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="secondary" (click)="listaUsuariosE(id,2)">
+        <ion-icon name="logo-angular"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <!-- END FINALIZAR SERVICIO -->
+
+  <div class="map-wrapper">
+
+    <div #map id="map"></div>
+  
+  </div>
+  
+</ion-content>

@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-toolbar class="barra" color="#4CAF50">
+    <ion-buttons slot="start">
+
+      <ion-button color="light" (click)="dismiss()"><ion-icon name="chevron-down-outline"></ion-icon></ion-button>
+      <!--<ion-back-button (click)="dismiss()"></ion-back-button>
+      <ion-back-button defaultHref="/menu/main"></ion-back-button>-->
+      
+    </ion-buttons>
+    <ion-title>Servicios Programados</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<!-- Default Refresher -->
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Arrastre para actualizar"
+      refreshingSpinner="dots"
+      refreshingText="Cargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="sw === 1">
+    <div *ngFor="let item of data" style="margin-top: 15px;">
+      <ion-card color="medium">
+
+        <ion-fab vertical="top" horizontal="end">
+
+          <span *ngIf="item.ruta===1" style="background: #4CAF50; color: white; margin: 2px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>RUTA</b></span>
+          <span *ngIf="item.ruta!=1 && item.estado_km===null" style="background: #4CAF50; color: white; margin: 2px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>EJECUTIVO</b></span>
+          <span *ngIf="item.estado_km!=null" style="background: #4CAF50; color: white; margin: 2px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>EJECUTIVO POR KM</b></span>
+
+        </ion-fab>
+
+        <ion-card-header *ngIf="item.ruta!=1">
+          <ion-card-subtitle style="font-size: 11px;" *ngIf="item.estado_km!=null" style="color: lightgreen;"><b>EJECUTIVO POR KM</b></ion-card-subtitle>
+          <ion-card-title style="font-size: 11px;">{{item.razonsocial}}</ion-card-title>
+          <br>
+          <div *ngFor="let datos of item.pasajeros.toString().split('/')">
+            <ion-item  href="tel:{{datos.toString().split(',')[1]}}" *ngIf="datos.toString().split(',')[0]!=''">
+              <ion-icon *ngIf="datos.toString().split(',')[0]!=''" size="small" slot="end" name="call-outline"></ion-icon>
+              <ion-card-subtitle slot="start" style="font-size: 11px;" *ngIf="datos.toString().split(',')[0]!=''">{{datos.toString().split(',')[0]}} <br><b>{{datos.toString().split(',')[1]}}</b></ion-card-subtitle>
+            </ion-item>
+          </div>
+        </ion-card-header>
+
+        <ion-card-header *ngIf="item.ruta===1">
+          <ion-card-title style="font-size: 11px;">{{item.razonsocial}}</ion-card-title>
+          <ion-card-subtitle *ngIf="item.ruta===1" style="font-size: 11px;">{{item.subcentro}}</ion-card-subtitle>
+          <br>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-card>        
+          
+            <ion-item>
+              <ion-icon name="navigate-outline" color="tertiary" slot="start"></ion-icon>
+              <ion-card-subtitle style="font-size: 11px;">{{item.recoger_en}}</ion-card-subtitle>
+            </ion-item>
+          
+            <ion-item>
+              <ion-icon name="location-outline" color="tertiary" slot="start"></ion-icon>
+              <ion-card-subtitle style="font-size: 11px;">{{item.dejar_en}}</ion-card-subtitle>
+            </ion-item>
+    
+            <ion-item>
+              <ion-icon name="chatbox-ellipses-outline" color="tertiary" slot="start"></ion-icon>
+              <ion-card-subtitle style="font-size: 11px;">{{item.detalle_recorrido}}</ion-card-subtitle>
+            </ion-item>
+    
+            <ion-item>
+              <ion-icon name="calendar-outline" color="tertiary" slot="start"></ion-icon>
+              <ion-card-subtitle style="font-size: 11px;">{{item.fecha_servicio}} : {{item.hora_servicio}}</ion-card-subtitle>
+            </ion-item>
+            <ion-row>
+
+              <ion-col *ngIf="item.ruta!=1" size="12">
+                <ion-button size="small" (click)="preguntarIniciar(item.id)" type="button" expand="block" color="tertiary">
+                  <ion-icon name="navigate-circle-outline" slot="start"></ion-icon>
+                  Iniciar
+                </ion-button>
+              </ion-col>  
+
+              <ion-col *ngIf="item.ruta===1" size="6">
+                <ion-button size="small" (click)="preguntarIniciar(item.id)" type="button" expand="block" color="tertiary">
+                  <ion-icon name="navigate-circle-outline" slot="start"></ion-icon>
+                  Iniciar
+                </ion-button>
+              </ion-col>              
+              <ion-col *ngIf="item.ruta===1 && item.razonsocial !='COLEGIO ELISA BORRERO DE PASTRANA'" size="6">
+                <ion-button size="small" (click)="listaUsuarios(1,item.id)" type="button" expand="block" color="medium">
+                  <ion-icon name="list-outline" slot="start"></ion-icon>
+                  Lista
+                </ion-button>
+              </ion-col>  
+              <!-- RUTA ESCOLAR -->            
+              <ion-col *ngIf="item.ruta===1 && item.razonsocial==='COLEGIO ELISA BORRERO DE PASTRANA'" size="6">
+                <ion-button size="small" (click)="listaUsuariosE(item.id)" type="button" expand="block" color="medium">
+                  <ion-icon name="list-outline" slot="start"></ion-icon>
+                  Lista ESC
+                </ion-button>
+              </ion-col>  
+            </ion-row>
+
+            <ion-row *ngIf="item.ruta===1">
+              <ion-col size="6" *ngIf="item.razonsocial != 'COLEGIO ELISA BORRERO DE PASTRANA'">
+                <ion-button size="small" (click)="scanCode1(item.id)" type="button" expand="block" color="dark">
+                  <ion-icon name="qr-code-outline" slot="start"></ion-icon>
+                  Scan
+                </ion-button>
+              </ion-col>
+
+              <!-- RUTA ESCOLAR -->
+              <ion-col size="6" *ngIf="item.razonsocial === 'COLEGIO ELISA BORRERO DE PASTRANA'">
+                <ion-button size="small" (click)="scanCodeE(item.id)" type="button" expand="block" color="dark">
+                  <ion-icon name="qr-code-outline" slot="start"></ion-icon>
+                  Scan ESC
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="6">
+                <ion-button size="small" (click)="AgregarAutorizado(item.id)" type="button" expand="block" color="danger">
+                  <ion-icon name="pencil-outline" slot="start"></ion-icon>
+                  Agregar
+                </ion-button>
+              </ion-col>
+            </ion-row>
+
+          </ion-card>
+
+          
+        </ion-card-content>
+
+      </ion-card>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <center>
+      <span style="font-size: 12px; text-align: center;">Deslice hacia abajo para actualizar la lista</span>
+    </center>
+  </ion-toolbar>
+</ion-footer>
+<!-- Custom Refresher Properties
+<ion-content>
+  <ion-refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+</ion-content>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+</ion-content>
+-->

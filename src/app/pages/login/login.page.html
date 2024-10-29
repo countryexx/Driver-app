@@ -1,0 +1,37 @@
+
+<ion-content>
+  
+  <img src="../../../assets/logo_aotour_mobile.png" style="margin-bottom: 30px;">
+
+  <form (ngSubmit)="login()" [formGroup]="credentials">
+
+    <div class="input-group">
+      <ion-item>
+        <ion-input type="email" placeholder="Digite Correo Corporativo" formControlName="username"></ion-input>
+      </ion-item>
+      <div *ngIf="(username.dirty || username.touched) && username.errors" class="errors">
+        <span *ngIf="username.errors?.required">Correo requerido</span>
+        <span *ngIf="username.errors?.email">El Email no es válido</span>
+      </div>
+
+      <ion-item>
+        <ion-input type="password" placeholder="Digite Contraseña" formControlName="password"></ion-input>
+      </ion-item>
+      <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
+        <span *ngIf="password.errors?.required">Contraseña requerida</span>
+        <span *ngIf="password.errors?.minlength">La contraseña debe tener mínimo 6 caracteres</span>
+        <span *ngIf="password.errors?.maxlength">La contraseña debe tener máximo 10 caracteres</span>
+      </div>
+    </div>
+
+      <ion-button type="submit" color="success" expand="block" [disabled]="!credentials.valid">Ingresar <ion-icon name="log-in-outline"></ion-icon></ion-button>      
+<!--
+      <ion-button type="button" expand="block" color="tertiary">
+        <ion-icon name="logo-google" slot="start"></ion-icon>
+         Google
+      </ion-button>      -->
+
+  </form>
+
+  <!--<ion-button color="primary" expand="block" (click)="pruebas()">Pruebas <ion-icon name="log-in-outline"></ion-icon></ion-button>-->
+</ion-content>

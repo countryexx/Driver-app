@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar class="barra" color="#4CAF50">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="dismiss()"><ion-icon name="chevron-down-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Reporte de Errores</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="reporteForm">
+
+    <ion-card color="danger">
+      <ion-card-header>
+        <ion-card-subtitle><b>¿Tienes errores con la aplicación?</b></ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card color="medium">
+      
+      <ion-list>
+        <!-- Textarea in an item with a floating label -->
+        <ion-item>
+          <ion-label position="floating" color="medium">Describe lo que te sucede</ion-label>
+          <ion-textarea [disabled]="sw === 1 " formControlName="descripcion" rows="9" #descripcion placeholder="Escribe aquí..."></ion-textarea>
+        </ion-item>
+      </ion-list>
+      
+    </ion-card>
+
+    <ion-card color="light">
+      <ion-button disabled [disabled]="descripcion.value === '' || sw === 1 " (click)="reportar()" type="submit" expand="block" color="danger">    
+        Enviar Reporte
+        <ion-icon name="send-outline" slot="end"></ion-icon>
+      </ion-button>
+    </ion-card>
+  </form>
+</ion-content>

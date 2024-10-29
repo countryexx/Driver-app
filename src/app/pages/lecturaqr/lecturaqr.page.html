@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar class="barra" color="#4CAF50">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="dismiss()"><ion-icon name="chevron-down-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Usuario Escaneado <ion-icon name="qr-code-outline"></ion-icon></ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div *ngFor="let user of usuarios">
+
+    <ion-card color="medium">
+        
+      <ion-card-header>
+        <ion-card-title style="text-align: center;" class="texto"><b>¡ESCANEO EXITOSO! <ion-icon style="font-size: 30px;" name="checkmark-done-outline"></ion-icon></b></ion-card-title>
+      </ion-card-header>        
+
+      <ion-card-content>
+        
+        <ion-list>
+          <ion-item color="medium" class="texto">
+            <ion-icon slot="start" name="person-outline"></ion-icon>
+            <p>{{user.nombres}} {{user.apellidos}}</p>
+          </ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-item color="medium" class="texto">
+            <ion-icon slot="start" name="location-outline"></ion-icon>
+            <p>{{user.direccion}}</p>
+          </ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-item color="medium" class="texto">
+            <ion-icon slot="start" name="pin-outline"></ion-icon>
+            <p>{{user.barrio}}</p>
+          </ion-item>
+        </ion-list>
+        <ion-list>
+
+          <ion-item color="medium" class="texto">
+            <ion-icon slot="start" name="calendar-number-outline"></ion-icon>
+            <p>{{user.fecha}} {{user.hora}}</p>
+          </ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-item color="medium" class="texto">
+            <ion-icon slot="start" name="bus-outline"></ion-icon>
+            <p>{{user.id_rutaqr}}</p>
+          </ion-item>
+        </ion-list>
+
+      </ion-card-content>
+
+    </ion-card>
+
+    <ion-footer>
+      <ion-toolbar color="medium">
+        <ion-title style="text-align: center;"><ion-icon color="light" style="font-size: 30px;" name="shield-checkmark-outline"></ion-icon></ion-title>
+      </ion-toolbar>
+    </ion-footer>
+
+  </div>
+
+</ion-content>

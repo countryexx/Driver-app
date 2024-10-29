@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar class="barra" color="#4CAF50">
+    <ion-buttons slot="start">
+
+      <ion-button color="light" (click)="dismiss()"><ion-icon name="chevron-down-outline"></ion-icon></ion-button>
+      
+    </ion-buttons>
+    <ion-title>Lista de Usuarios <ion-icon name="qr-code-outline"></ion-icon></ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="background-color: rgb(221, 221, 198);">
+  <div *ngFor="let item of data" style="margin-top: 15px;">
+    <ion-card style="background-color: #4CAF50;">
+      <ion-card-header>
+          <ion-card-subtitle color="light" *ngIf="item.fullname!=null">{{item.fullname}} </ion-card-subtitle>
+          <ion-card-subtitle color="light" *ngIf="item.fullname===null">{{item.nombre}} {{item.apellidos}}</ion-card-subtitle>
+
+          <ion-card-subtitle color="light" *ngIf="item.fullname===null && item.nombres===null">Usuario no registrado</ion-card-subtitle>
+
+      </ion-card-header>
+    
+      <ion-card-content>
+
+        <ion-card *ngIf="item.fullname!=null">
+
+          <ion-item>
+            <ion-icon name="location-outline" slot="start" color="danger"></ion-icon>
+            <h6>{{item.address}}</h6>
+          </ion-item>
+
+          <ion-item *ngIf="item.neighborhood!='' && item.neighborhood!=null">
+            <ion-icon name="pin-outline" slot="start" color="danger"></ion-icon>
+            <h6>{{item.neighborhood}}</h6>
+          </ion-item>
+
+          <ion-item *ngIf="item.locality!='' && item.locality!=null">
+            <ion-icon name="locate-outline" slot="start" color="danger"></ion-icon>
+            <h6>{{item.locality}}</h6>
+          </ion-item>
+        
+          <ion-item>
+            <ion-icon name="call-outline" slot="start" color="danger"></ion-icon>
+            
+            <h6 *ngIf="item.cel!='' && item.cel!=null">{{item.cel}}</h6>
+            <h6 *ngIf="item.cel==='' || item.cel===null">NO REGISTRA</h6>
+          </ion-item>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button size="small" [disabled]="item.cel===''" href="tel:+57 {{item.cel}}" type="button" expand="block" color="danger">
+                <ion-icon color="light" name="call-outline" slot="start"></ion-icon>
+              </ion-button>
+            </ion-col>              
+            <ion-col size="6">
+              <ion-button size="small" [disabled]="item.cel===''" href="https://wa.me/57{{item.cel}}?text=Hola,%20{{item.nombre}}!" type="button" expand="block" color="success">
+                <ion-icon name="logo-whatsapp" color="light" slot="start"></ion-icon>
+              </ion-button>
+            </ion-col>              
+          </ion-row>
+        </ion-card>
+
+        <ion-card *ngIf="item.fullname===null">
+
+          <ion-item>
+            <ion-icon name="location-outline" slot="start" color="danger"></ion-icon>
+            <h6 *ngIf="item.direccion!=null && item.direccion!=''">{{item.direccion}}</h6>
+            <h6 *ngIf="item.direccion===null || item.direccion===''">No se registra dirección</h6>
+          </ion-item>
+
+          <ion-item>
+            <ion-icon name="pin-outline" slot="start" color="danger"></ion-icon>
+            <h6 *ngIf="item.barrio!=null && item.barrio!=''">{{item.barrio}}</h6>
+            <h6 *ngIf="item.barrio===null || item.barrio===''">No se registra barrio</h6>
+          </ion-item>
+        
+          <ion-item>
+            <ion-icon name="call-outline" slot="start" color="danger"></ion-icon>
+            
+            <h6 *ngIf="item.cel!='' && item.cel!=null">{{item.cel}}</h6>
+            <h6 *ngIf="item.cel==='' || item.cel===null">NO REGISTRA</h6>
+          </ion-item>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button size="small" [disabled]="item.cel===''" href="tel:+57 {{item.cel}}" type="button" expand="block" color="secondary">
+                <ion-icon color="light" name="call-outline" slot="start"></ion-icon>
+              </ion-button>
+            </ion-col>              
+            <ion-col size="6">
+              <ion-button size="small" [disabled]="item.cel===''" href="https://wa.me/57{{item.cel}}?text=Hola,%20{{item.nombre}}!" type="button" expand="block" color="success">
+                <ion-icon name="logo-whatsapp" color="light" slot="start"></ion-icon>
+              </ion-button>
+            </ion-col>              
+          </ion-row>
+        </ion-card>
+
+        <ion-footer>
+          <ion-toolbar color="light">
+            <ion-title *ngIf="item.status===1" class="texto">Escaneado! <ion-icon color="success" size="large" name="checkmark-sharp"></ion-icon></ion-title>
+            <ion-title *ngIf="item.status===2" class="texto">Autorizado! <ion-icon color="primary" size="large" name="create-sharp"></ion-icon></ion-title>
+            <ion-title *ngIf="item.status===3" class="texto">No Registrado! <ion-icon color="warning" size="large" name="warning-sharp"></ion-icon></ion-title>
+            <ion-title *ngIf="item.status===null" class="texto">No Leído! <ion-icon color="danger" size="large" name="close-sharp"></ion-icon></ion-title>
+          </ion-toolbar>
+        </ion-footer>
+        
+      </ion-card-content>
+
+    </ion-card>
+  </div>
+</ion-content>

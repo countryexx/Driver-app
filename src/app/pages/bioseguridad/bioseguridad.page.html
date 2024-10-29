@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar class="barra" color="#4CAF50">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="dismiss()"><ion-icon name="chevron-down-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Limpieza de Vehículo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card style="background-color: lightgoldenrodyellow;">
+    <ion-card-header>
+      <ion-card-subtitle>Módulo para el envío del reporte de limpieza de la desinfección en los vehículos.</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  
+    <ion-card>
+      <ion-item>
+        <ion-icon name="brush" slot="start"></ion-icon>
+        <ion-label>¿Realizó esta acción?</ion-label>
+        <ion-checkbox #check color="success"></ion-checkbox>
+      </ion-item>
+    
+      <ion-card-content>
+        Doy fé de la realización de la limpieza vehícular, donde se desinfectaron los puntos de contacto frecuente de los usuarios.
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card>
+      <ion-item>
+        <ion-icon name="brush" slot="start"></ion-icon>
+        <ion-label>¿Realizó esta acción?</ion-label>
+        <ion-checkbox #check2 color="success"></ion-checkbox>
+      </ion-item>
+    
+      <ion-card-content>
+        Se realiza limpieza con los elementos indicados por el ministerio de salud y los EPP adecuados.
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        Acepto las políticas
+        <ion-checkbox  #check3 color="success" slot="end"></ion-checkbox>
+      </ion-item>
+    
+      <ion-card-content>
+        
+      </ion-card-content>
+
+      <ion-button class="barra" [disabled]="!check.checked || !check2.checked || !check3.checked" (click)="enviarReporte()" type="button" expand="full" color="success">
+        Enviar Reporte
+        <ion-icon name="send-outline" slot="end"></ion-icon>
+      </ion-button>
+
+    </ion-card>
+  
+</ion-content>

@@ -1,0 +1,8 @@
+{
+  "name": "Aotour Mobile Driver",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

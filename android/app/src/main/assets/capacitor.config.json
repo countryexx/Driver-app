@@ -1,0 +1,15 @@
+{
+	"appId": "com.aotour.driver",
+	"appName": "Aotour Mobile Driver",
+	"webDir": "www",
+	"bundledWebRuntime": false,
+	"plugins": {
+		"PushNotifications": {
+			"presentationOptions": [
+				"badge",
+				"sound",
+				"alert"
+			]
+		}
+	}
+}

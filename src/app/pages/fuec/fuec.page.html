@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar class="barra" color="#4CAF50">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="dismiss()"><ion-icon name="chevron-down-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Listado de Fuec</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngFor="let item of fuec">
+    
+    <!--<ion-list style="margin-top: 10px;">
+
+      <ion-item (click)="buscarFuecs(item.id)" style="border-top: 1px;">
+        <ion-icon name="document-outline" slot="start" color="dark"></ion-icon>
+        <ion-label color="dark">{{item.contratante}}</ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end" color="dark"></ion-icon>
+      </ion-item>
+  
+    </ion-list>-->
+
+    <ion-card color="medium">
+      <ion-card-header>
+        
+        <ion-card-subtitle>{{item.contratante}}</ion-card-subtitle>
+        
+      </ion-card-header>
+    
+      <ion-card-content>
+        
+        <ion-item>
+          <ion-icon name="navigate-outline" color="dark" slot="start"></ion-icon>
+          <h6>{{item.origen}}</h6>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="location-outline" color="dark" slot="start"></ion-icon>
+          <h6>{{item.destino}}</h6>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="calendar-outline" color="dark" slot="start"></ion-icon>
+          <h6>{{item.fecha_inicial}} | {{item.fecha_final}}</h6>
+        </ion-item>
+
+        <ion-row>
+          <ion-col size="6">
+            <ion-button (click)="downloadFile(item.id)" type="button" expand="block" color="danger">
+              <ion-icon name="arrow-down-outline" slot="end"></ion-icon>
+              Descargar
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <a href="https://app.aotour.com.co/autonet/descargar/fuec_link/numero/{{item.id}}">
+              <ion-button type="button" expand="block" color="warning">
+                <ion-icon name="link-outline" slot="end"></ion-icon>
+                LINK
+              </ion-button>
+            </a>
+          </ion-col>
+        </ion-row>
+
+      </ion-card-content>
+
+    </ion-card>
+  </div>
+
+</ion-content>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "29172778351",
+    "firebase_url": "https://aotour-mobile-driver-pro.firebaseio.com",
+    "project_id": "aotour-mobile-driver-pro",
+    "storage_bucket": "aotour-mobile-driver-pro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29172778351:android:716d00da87cee024d1149a",
+        "android_client_info": {
+          "package_name": "com.aotour.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "29172778351-tsnshg3jf3ihcnso1fpav6gkvvi4aspc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBnqW_yOhMU1uKpNG9invXnsHkmxaibt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "29172778351-tsnshg3jf3ihcnso1fpav6gkvvi4aspc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

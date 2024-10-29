@@ -1,0 +1,45 @@
+
+<ion-content>
+  <ion-slides pager="true">
+
+      <!-- Slide 1 -->
+      <ion-slide>
+        <ion-card style="width: 100%; background-color: #A2A4A3;">
+          <ion-card-header>
+            <ion-card-subtitle style="font-family: Bahnschrift; font-size: 22px; color: white;">Bienvenido</ion-card-subtitle>
+          </ion-card-header>
+          <center>
+            <img src="../../../assets/icons_inicio.png" >
+          </center>
+          
+          <!--<p>Regístrate para que solicites tus recorridos</p>-->
+          <ion-button style="margin-top: 20px; margin-bottom: 20px;" (click)="next()" fill="outline" color="light">Continuar <ion-icon slot="end" name="chevron-forward-circle-outline"></ion-icon></ion-button>
+        </ion-card>
+      </ion-slide>
+      
+      <!-- Slide 2 -->
+      <ion-slide>
+        <ion-fab vertical="top" horizontal="end">
+          <ion-button style="margin-top: 20px; margin-bottom: 20px;" (click)="start()" fill="outline" color="success">Iniciar Sesión <ion-icon name="log-in-outline"></ion-icon></ion-button>
+        </ion-fab>
+        
+        <ion-card style="background: fixed;">
+          <ion-row>
+            <ion-col size="12">
+              <center>
+                <img src="../../../assets/logo_aotour_mobile.png" style="margin-top: 28px; margin-bottom: 15px;">
+              </center>
+            </ion-col>
+            <ion-col size="12">
+              <ion-card-subtitle style="font-family: Bahnschrift; font-size: 22px;" class="label-estado">Gracias por usar la APP</ion-card-subtitle>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+        <!--<ion-row>
+          <ion-button style="margin-top: 20px; margin-bottom: 20px;" (click)="start()" fill="outline" color="success">Iniciar Sesión <ion-icon name="log-in-outline"></ion-icon></ion-button>
+        </ion-row>-->
+      </ion-slide>
+  </ion-slides>
+
+  
+</ion-content>

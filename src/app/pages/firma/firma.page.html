@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar class="barra" color="#4CAF50">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="dismiss()"><ion-icon name="chevron-down-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>
+      Firma
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="signature-pad">
+    <div>
+      <canvas class="signature-pad-canvas" #canvas width="800" height="300" style="touch-action: none;"></canvas>
+    </div>
+  </div>
+
+  <div>
+
+    <ion-row>
+      <ion-col size="6">                
+        <ion-button color="danger" expand="full" [disabled]="isCanvasBlank()" (click)="clear()">Limpiar <ion-icon slot="end" name="trash-bin-outline"></ion-icon></ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button color="warning" expand="full" [disabled]="isCanvasBlank()" (click)="undo()">Borrar <ion-icon slot="end" name="trash-outline"></ion-icon></ion-button>
+      </ion-col>
+      <ion-col size="12">        
+        <ion-button color="success" expand="full" [disabled]="isCanvasBlank()" (click)="finalizarServicio(id,calificacion_calidad,calificacion_actitud)">Guardar <ion-icon slot="end" name="save-outline"></ion-icon></ion-button>
+      </ion-col>
+    </ion-row>
+
+  </div>
+  
+</ion-content>

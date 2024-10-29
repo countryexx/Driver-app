@@ -1,0 +1,105 @@
+<ion-menu contentId="content" class="my-custom-menu" mode="ios" side="start" menuId="custom">
+
+  <ion-header>
+    <ion-toolbar style="background-color: #F2F2F2;">
+      <img src="../../../assets/logo_aotour_mobile.png" style="margin-left: 50px; margin-top: 10px;"  height="60%" width="60%">
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <div style="background-color: #F2F2F2;">
+
+      <img *ngIf="foto!=null" src="https://app.aotour.com.co/autonet/biblioteca_imagenes/proveedores/conductores/{{foto}}" style="background-color: green; height: 150px; margin-top: 15px; margin-left: 30%; width: 120px; border-radius: 50%; border: white 6px solid; -webkit-box-shadow: 1px 2px 2px 0px rgb(38, 113, 41); -moz-box-shadow: 1px 2px 2px 0px rgb(38, 113, 41); box-shadow: 1px 2px 2px 0px rgb(38, 113, 41); margin-bottom: 10px;" height="60%" width="60%">
+
+      <img *ngIf="foto===null" src="../../../assets/sin_foto.png" style="background-color: red; height: 150px; margin-top: 15px; margin-left: 30%; width: 120px; border-radius: 50%; border: white 6px solid; -webkit-box-shadow: 1px 2px 2px 0px rgb(38, 113, 41); -moz-box-shadow: 1px 2px 2px 0px rgb(38, 113, 41); box-shadow: 1px 2px 2px 0px rgb(38, 113, 41); margin-bottom: 10px;" height="60%" width="60%">
+
+    </div>
+    <div>
+      <ion-item>
+        <ion-label style="color: #4CAF50; font-size: 12px; text-align: center;"><b>{{nombre}}</b></ion-label>
+      </ion-item>
+    </div>
+      <div>
+          <!-- prueba -->
+          
+          <ion-menu-toggle style="color: orange;">
+            <ion-item (click)="serviciosModal()">
+              <ion-icon name="checkbox" class="verde" slot="start"></ion-icon>
+
+              <ion-label>
+                Servicios Asignados
+              </ion-label>
+              <ion-icon slot="end" class="verde" name="chevron-forward-outline"></ion-icon>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+            <ion-item (click)="historialModal()">
+              <ion-icon name="receipt" class="verde" slot="start"></ion-icon>
+
+              <ion-label>
+                Historial de Servicios
+              </ion-label>
+              <ion-icon slot="end" class="verde" name="chevron-forward"></ion-icon>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+            <ion-item (click)="contratanteModal()">
+              <ion-icon name="document" class="verde" slot="start"></ion-icon>
+
+              <ion-label>
+                Clientes Fuec 
+              </ion-label>
+              <ion-icon slot="end" class="verde" name="chevron-forward"></ion-icon>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+            <ion-item (click)="bioseguridadModal()">
+              <ion-icon name="medkit" class="verde" slot="start"></ion-icon>
+
+              <ion-label>
+                Reporte de Limpieza
+              </ion-label>
+              <ion-icon slot="end" class="verde" name="chevron-forward-outline"></ion-icon>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+            <ion-item (click)="recursosModal()">
+              <ion-icon name="image" class="verde" slot="start"></ion-icon>
+
+              <ion-label>
+                Gestión de Recursos
+              </ion-label>
+              <ion-icon slot="end" class="verde" name="chevron-forward"></ion-icon>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+            <ion-item (click)="erroresReporte()">
+              <ion-icon name="alert-circle" class="verde" slot="start"></ion-icon>
+
+              <ion-label>
+                Reporte de Errores
+              </ion-label>
+              <ion-icon slot="end" class="verde" name="chevron-forward"></ion-icon>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle>
+            <ion-item (click)="logout()">
+              <ion-icon name="log-out" class="verde" slot="start"></ion-icon>
+
+              <ion-label>
+                Salir
+              </ion-label>
+              <ion-icon slot="end" class="verde" name="chevron-forward"></ion-icon>
+            </ion-item>
+          </ion-menu-toggle>
+      </div>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="content" main></ion-router-outlet>

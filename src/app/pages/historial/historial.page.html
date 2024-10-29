@@ -1,0 +1,199 @@
+<ion-header>
+  <ion-toolbar class="barra" color="#4CAF50">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="dismiss()"><ion-icon name="chevron-down-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Historial de Servicios</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+  <ion-list style="margin-top: 15px;">
+    <ion-segment color="warning" value="ciudad">
+      <ion-segment-button value="dia" (click)="dias(1)">
+        <ion-label>DÍA</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="mes" (click)="meses(2)">
+        <ion-label>MES</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-list>
+
+  <form [formGroup]="historialForm">
+    
+    <ion-card color="light">
+      
+      <ion-item *ngIf="dia===1">
+        <ion-datetime done-text="SELECCIONAR" cancel-text="VOLVER" formControlName="fechad" displayFormat="YYYY/MM/DD" min="2010-01-01" #dated max="2025-12-31" placeholder="Seleccionar Día"></ion-datetime>
+      </ion-item>
+      
+      <ion-button *ngIf="dia===1" style="margin-top: 15px;" (click)="buscarServicios(1)" #boton type="button" expand="full" color="secondary">    
+        Buscar Día
+        <ion-icon name="search-sharp" slot="end"></ion-icon>
+      </ion-button>
+
+      <ion-item *ngIf="mes===1">
+
+        <ion-datetime presentation="month" displayFormat="YYYY/MM" done-text="SELECCIONAR" cancel-text="VOLVER" formControlName="fecham" #datem placeholder="Seleccionar Mes"></ion-datetime>
+
+<!--        <ion-datetime done-text="SELECCIONAR" cancel-text="VOLVER" formControlName="fecham" displayFormat="YYYY/MM/DD" min="2010-01-01" #datem max="2025-12-31" placeholder="Seleccionar Mes"></ion-datetime>-->
+      </ion-item>
+      
+      <ion-button *ngIf="mes===1" style="margin-top: 15px;" (click)="buscarServicios(2)" #boton type="button" expand="full" color="secondary">    
+        Buscar Mes
+        <ion-icon name="search-sharp" slot="end"></ion-icon>
+      </ion-button>
+      
+    </ion-card>
+
+  </form>
+
+  <div *ngIf="servicios.length > 0 && dia===1 && mes===0" style="margin-top: 15px;">
+    
+    <ion-card *ngFor="let item of servicios" color="medium">
+
+      <ion-fab vertical="top" horizontal="end">
+        
+        <span *ngIf="item.ruta===1" style="background: #4CAF50; color: white; margin: 2px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>RUTA</b></span>
+          <span *ngIf="item.ruta!=1 && item.estado_km===null" style="background: #4CAF50; color: white; margin: 2px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>EJECUTIVO</b></span>
+          <span *ngIf="item.estado_km!=null" style="background: #4CAF50; color: white; margin: 2px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>EJECUTIVO POR KM</b></span>
+
+      </ion-fab>
+
+      <ion-card-header *ngIf="item.ruta!=1">
+        <ion-card-subtitle style="font-size: 11px;" *ngIf="item.estado_km!=null" style="color: lightgreen;"><b>EJECUTIVO POR KM</b></ion-card-subtitle>
+        <ion-card-title style="font-size: 11px;">{{item.razonsocial}}</ion-card-title>
+        <br>
+        <div *ngFor="let datos of item.pasajeros.toString().split('/')">
+          <ion-item *ngIf="datos.toString().split(',')[0]!=''">
+            <ion-card-subtitle slot="start" style="font-size: 11px;" *ngIf="datos.toString().split(',')[0]!=''">{{datos.toString().split(',')[0]}} <br><b>{{datos.toString().split(',')[1]}}</b></ion-card-subtitle>
+          </ion-item>
+        </div>
+      </ion-card-header>
+
+      <ion-card-header *ngIf="item.ruta===1">
+        <ion-card-title style="font-size: 11px;">{{item.razonsocial}}</ion-card-title>
+        <ion-card-subtitle *ngIf="item.ruta===1" style="font-size: 11px;">{{item.subcentro}}</ion-card-subtitle>
+        <br>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-card>        
+        
+          <ion-item>
+            <ion-icon name="navigate-outline" slot="start"></ion-icon>
+            <h6>{{item.recoger_en}}</h6>
+          </ion-item>
+        
+          <ion-item>
+            <ion-icon name="location-outline" slot="start"></ion-icon>
+            <h6>{{item.dejar_en}}</h6>
+          </ion-item>
+  
+          <ion-item>
+            <ion-icon name="chatbox-ellipses-outline" slot="start"></ion-icon>
+            <h6>{{item.detalle_recorrido}}</h6>
+          </ion-item>
+  
+          <ion-item>
+            <ion-icon name="calendar-outline" slot="start"></ion-icon>
+            <h6>{{item.fecha_servicio}} : {{item.hora_servicio}} </h6>
+          </ion-item>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button (click)="descargarConstancia(item.id)" type="button" expand="block" color="warning">
+                <ion-icon name="documents-outline" size="small" slot="start"></ion-icon>
+                 <span style="font-size: 10px;">Constancia</span>
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button (click)="modalNovedades(item.id)" type="button" expand="block" color="secondary">
+                <ion-icon name="document-text-outline" size="small" slot="start"></ion-icon>
+                 <span style="font-size: 10px;">Novededad</span>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+
+        
+      </ion-card-content>
+
+    </ion-card>
+  </div>
+
+  <div *ngIf="servicios.length > 0 && mes===1 && dia===0" style="margin-top: 15px;">
+    
+    <ion-card *ngFor="let item of servicios" color="medium">
+
+      <ion-fab vertical="top" horizontal="end">
+        
+        <span *ngIf="item.ruta===1" style="background: #4CAF50; color: white; margin: 2px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>RUTA</b></span>
+          <span *ngIf="item.ruta!=1 && item.estado_km===null" style="background: #4CAF50; color: white; margin: 2px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>EJECUTIVO</b></span>
+          <span *ngIf="item.estado_km!=null" style="background: #4CAF50; color: white; margin: 2px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>EJECUTIVO POR KM</b></span>
+
+      </ion-fab>
+
+      <ion-card-header *ngIf="item.ruta!=1">
+        <ion-card-subtitle style="font-size: 11px;" *ngIf="item.estado_km!=null" style="color: lightgreen;"><b>EJECUTIVO POR KM</b></ion-card-subtitle>
+        <ion-card-title style="font-size: 11px;">{{item.razonsocial}}</ion-card-title>
+        <br>
+        <div *ngFor="let datos of item.pasajeros.toString().split('/')">
+          <ion-item *ngIf="datos.toString().split(',')[0]!=''">
+            <ion-card-subtitle slot="start" style="font-size: 11px;" *ngIf="datos.toString().split(',')[0]!=''">{{datos.toString().split(',')[0]}} <br><b>{{datos.toString().split(',')[1]}}</b></ion-card-subtitle>
+          </ion-item>
+        </div>
+      </ion-card-header>
+
+      <ion-card-header *ngIf="item.ruta===1">
+        <ion-card-title style="font-size: 11px;">{{item.razonsocial}}</ion-card-title>
+        <ion-card-subtitle *ngIf="item.ruta===1" style="font-size: 11px;">{{item.subcentro}}</ion-card-subtitle>
+        <br>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-card>        
+        
+          <ion-item>
+            <ion-icon name="navigate-outline" slot="start"></ion-icon>
+            <h6>{{item.recoger_en}}</h6>
+          </ion-item>
+        
+          <ion-item>
+            <ion-icon name="location-outline" slot="start"></ion-icon>
+            <h6>{{item.dejar_en}}</h6>
+          </ion-item>
+  
+          <ion-item>
+            <ion-icon name="chatbox-ellipses-outline" slot="start"></ion-icon>
+            <h6>{{item.detalle_recorrido}}</h6>
+          </ion-item>
+  
+          <ion-item>
+            <ion-icon name="calendar-outline" slot="start"></ion-icon>
+            <h6>{{item.fecha_servicio}} : {{item.hora_servicio}} </h6>
+          </ion-item>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button (click)="descargarConstancia(item.id)" type="button" expand="block" color="warning">
+                <ion-icon name="documents-outline" size="small" slot="start"></ion-icon>
+                 <span style="font-size: 10px;">Constancia</span>
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button (click)="modalNovedades(item.id)" type="button" expand="block" color="secondary">
+                <ion-icon name="document-text-outline" size="small" slot="start"></ion-icon>
+                 <span style="font-size: 10px;">Novededad</span>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+
+        
+      </ion-card-content>
+
+    </ion-card>
+  </div>
+
+</ion-content>

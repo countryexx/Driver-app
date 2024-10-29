@@ -1,0 +1,162 @@
+<ion-header>
+  <ion-toolbar class="barra" color="#4CAF50">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="dismiss()"><ion-icon name="chevron-down-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Servicios Asignados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Página al iniciar la vista -->
+  <div *ngIf="inicial===0" >
+    
+    <ion-card [color]="item.ruta===1 ? 'medium' : 'medium'" id="{{item.id}}" *ngFor="let item of data">
+
+      <ion-fab vertical="top" horizontal="end">
+        
+        <span *ngIf="item.ruta===1" style="margin-bottom: 30px; background: #4CAF50; color: white; margin: 22px 0px 0px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>RUTA</b></span>
+        <span *ngIf="item.ruta!=1 && item.estado_km!=1" style="background: #4CAF50; color: white; margin: 2px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>EJECUTIVO</b></span>
+        <span *ngIf="item.estado_km!=null" style="background: #4CAF50; color: white; margin: 2px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>EJECUTIVO POR KM</b></span>
+
+      </ion-fab>
+
+      <ion-card-header *ngIf="item.ruta!=1">
+        <ion-card-subtitle style="font-size: 11px;" *ngIf="item.estado_km!=null" style="color: lightgreen;"><b>EJECUTIVO POR KM</b></ion-card-subtitle>
+        <ion-card-title style="font-size: 11px;">{{item.razonsocial}}</ion-card-title>
+        <br>
+        <div *ngFor="let datos of item.pasajeros.toString().split('/')">
+          <ion-item *ngIf="datos.toString().split(',')[0]!=''">
+            <ion-card-subtitle slot="start" style="font-size: 11px;" *ngIf="datos.toString().split(',')[0]!=''">{{datos.toString().split(',')[0]}} <br><b>{{datos.toString().split(',')[1]}}</b></ion-card-subtitle>
+          </ion-item>
+        </div>
+      </ion-card-header>
+
+      <ion-card-header *ngIf="item.ruta===1">
+        <ion-card-title style="font-size: 11px;">{{item.razonsocial}}</ion-card-title>
+        <ion-card-subtitle *ngIf="item.ruta===1" style="font-size: 11px;">{{item.subcentro}}</ion-card-subtitle>
+        <br>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-card>        
+        
+          <ion-item >
+            <ion-icon name="navigate-outline" slot="start" color="success"></ion-icon>
+            <ion-card-subtitle style="font-size: 11px;">{{item.recoger_en}}</ion-card-subtitle>
+          </ion-item>
+        
+          <ion-item>
+            <ion-icon name="location-outline" slot="start" color="success"></ion-icon>
+            <ion-card-subtitle style="font-size: 11px;">{{item.dejar_en}}</ion-card-subtitle>
+          </ion-item>
+  
+          <ion-item>
+            <ion-icon name="chatbox-ellipses-outline" slot="start" color="success"></ion-icon>
+            <ion-card-subtitle style="font-size: 11px;">{{item.detalle_recorrido}}</ion-card-subtitle>
+          </ion-item>
+  
+          <ion-item>
+            <ion-icon name="calendar-outline" slot="start" color="success"></ion-icon>
+            <ion-card-subtitle style="font-size: 11px;">{{item.fecha_servicio}} : {{item.hora_servicio}}</ion-card-subtitle>
+          </ion-item>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button size="small" style="font-size: 12px;" (click)="preguntarRechazo(item.id)" type="button" expand="block" color="danger">
+                <ion-icon name="close-outline" slot="start"></ion-icon>
+                 Rechazar
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button size="small" style="font-size: 12px;" (click)="aceptarServicio(item.id)" type="button" expand="block" color="success">
+                <ion-icon name="log-out-outline" slot="start"></ion-icon>
+                 Aceptar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+  
+        </ion-card>
+      </ion-card-content>
+  
+    </ion-card>
+
+  </div>
+
+
+  <!-- Página al aceptar o rechazar un servicio -->
+  <div *ngIf="inicial!=0">
+    
+    <ion-card [color]="item.ruta===1 ? 'medium' : 'medium'" id="{{item.id}}" *ngFor="let item of services">
+
+      <ion-fab vertical="top" horizontal="end">
+        
+        <span *ngIf="item.ruta===1" style="margin-bottom: 30px; background: #4CAF50; color: white; margin: 22px 0px 0px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>RUTA</b></span>
+        <span *ngIf="item.ruta!=1 && item.estado_km!=1" style="background: #4CAF50; color: white; margin: 2px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>EJECUTIVO</b></span>
+        <span *ngIf="item.estado_km!=null" style="background: #4CAF50; color: white; margin: 2px 0px; font-size: 12px; padding: 5px 5px; width: 150px; border-radius: 2px;" name="checkmark-done-outline"><b>EJECUTIVO POR KM</b></span>
+
+      </ion-fab>
+      
+      <ion-card-header *ngIf="item.ruta!=1">
+        <ion-card-subtitle style="font-size: 11px;" *ngIf="item.estado_km!=null" style="color: lightgreen;"><b>EJECUTIVO POR KM</b></ion-card-subtitle>
+        <ion-card-title style="font-size: 11px;">{{item.razonsocial}}</ion-card-title>
+        <br>
+        <div *ngFor="let datos of item.pasajeros.toString().split('/')">
+          <ion-item  href="tel:3013869946" *ngIf="datos.toString().split(',')[0]!=''">
+            <ion-icon *ngIf="datos.toString().split(',')[0]!=''" size="small" slot="end" name="call-outline"></ion-icon>
+            <ion-card-subtitle slot="start" style="font-size: 11px;" *ngIf="datos.toString().split(',')[0]!=''">{{datos.toString().split(',')[0]}} <br><b>{{datos.toString().split(',')[1]}}</b></ion-card-subtitle>
+          </ion-item>
+        </div>
+      </ion-card-header>
+
+      <ion-card-header *ngIf="item.ruta===1">
+        <ion-card-title style="font-size: 11px;">{{item.razonsocial}}</ion-card-title>
+        <ion-card-subtitle *ngIf="item.ruta===1" style="font-size: 11px;">{{item.subcentro}}</ion-card-subtitle>
+        <br>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-card>        
+        
+          <ion-item>
+            <ion-icon name="navigate-outline" slot="start" color="success"></ion-icon>
+            <ion-card-subtitle style="font-size: 11px;">{{item.recoger_en}}</ion-card-subtitle>
+          </ion-item>
+        
+          <ion-item>
+            <ion-icon name="location-outline" slot="start" color="success"></ion-icon>
+            <ion-card-subtitle style="font-size: 11px;">{{item.dejar_en}}</ion-card-subtitle>
+          </ion-item>
+  
+          <ion-item>
+            <ion-icon name="chatbox-ellipses-outline" slot="start" color="success"></ion-icon>
+            <ion-card-subtitle style="font-size: 11px;">{{item.detalle_recorrido}}</ion-card-subtitle>
+          </ion-item>
+  
+          <ion-item>
+            <ion-icon name="calendar-outline" slot="start" color="success"></ion-icon>
+            <ion-card-subtitle style="font-size: 11px;">{{item.fecha_servicio}} : {{item.hora_servicio}}</ion-card-subtitle>
+          </ion-item>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button size="small" style="font-size: 12px;" (click)="preguntarRechazo(item.id)" type="button" expand="block" color="danger">
+                <ion-icon name="close-outline" slot="start"></ion-icon>
+                 Rechazar
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button size="small" style="font-size: 12px;" (click)="aceptarServicio(item.id)" type="button" expand="block" color="success">
+                <ion-icon name="log-out-outline" slot="start"></ion-icon>
+                 Aceptar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+  
+        </ion-card>
+      </ion-card-content>
+  
+    </ion-card>
+
+  </div>
+
+</ion-content>
